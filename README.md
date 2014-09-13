@@ -30,6 +30,7 @@ var handlers = FileIndex
 	.handle('*', myCustomHandler) // a non mandatory fallthrough custom handler
 	.create()
 
+// mix directories and files
 FileIndex.load(['/some/path/', '/some/file.bar', '/yet/another/path'], handlers, function(err, results) {
 	console.log(err, results)
 
