@@ -1,6 +1,6 @@
 {
   "name": "file-index",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "load files into a memory index",
   "main": "index.js",
   "scripts": {
