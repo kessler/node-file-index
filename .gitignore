@@ -24,4 +24,4 @@ node_modules
 # rc config files
 .*rc
 
-fileLoadertest
+testfiles
