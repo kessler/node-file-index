@@ -9,6 +9,7 @@
   "dependencies": {
     "async": "^0.9.0",
     "lodash.clonedeep": "^2.4.1",
+    "lodash.uniq": "^2.4.1",
     "minimatch": "^1.0.0"
   },
   "author": "Yaniv Kessler",

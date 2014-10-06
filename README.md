@@ -1,6 +1,8 @@
 # file-index
 
-Quickly create an in memory index of files and their content
+Quickly create an in memory index of files and (optionally) their content
+
+Uses (minimatch)[https://github.com/isaacs/minimatch] to filter files included in the index
 
 ### simple
 ```
@@ -10,6 +12,12 @@ FileIndex.load(['/some/path'], function (err, results) {
 	// loads and parses json files
 	// loads all the rest of the files as buffers
 	// results: { '/some/path/1.json': { a: 1}, '/some/path/2.txt': buffer }
+})
+
+FileIndex.scan(['/some/path'], function(err, files) {
+	// scan all files in path recursively and returns an index
+	// { '/some/path/1': stat, '/some/path/2': stat }
+	// where stat is the result of running fs.stat on each file
 })
 ```
 

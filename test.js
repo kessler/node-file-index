@@ -36,7 +36,7 @@ function getCount(dict) {
 	return count
 }
 
-describe('file loader', function () {
+describe('file index', function () {
 
 	var handlers = FileIndex
 		.handle('*.json', FileIndex.loadJsonFile)
@@ -116,7 +116,7 @@ describe('file loader', function () {
 
 			assert.ok(t3 in results)
 			assert.strictEqual(results[t3].test, 3)
-			console.log(results)
+			
 			done(err)
 		})
 	})
@@ -128,6 +128,24 @@ describe('file loader', function () {
 			assert.strictEqual(getCount(results), 1)
 			assert.ok(t1 in results)
 			assert.strictEqual(results[t1].test, 1)
+
+			done(err)
+		})
+	})
+
+	it('scans', function  (done) {
+		var t1 = path.join(MULTI_FILE_TEST_DIR, 'test1.json')
+		var t2 = path.join(MULTI_FILE_TEST_DIR, 'test2.json')
+		var t3 = path.join(NESTED_TEST_DIR, 'test3.json')
+		var t4 = path.join(NESTED_TEST_DIR, 'test4.zzz')
+
+		FileIndex.scan(MULTI_FILE_TEST_DIR, '*.json', function(err, files) {
+			assert.strictEqual(getCount(files), 3)
+
+			assert.ok(t1 in files)
+			assert.ok(t2 in files)
+			assert.ok(t3 in files)
+			assert.ok(!(t4 in files))
 
 			done(err)
 		})
