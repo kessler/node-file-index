@@ -17,16 +17,16 @@ module.exports.scan = function(aPath, filters, callback) {
 		filters = ['*']
 	}
 
+	// TODO this module code is not separated/modular enough - its tailored around loading and handling file content
+	// this is a "hack" to write less code for scanning
+	function toStatHandler(file, stat, callback) {
+		callback(null, stat)
+	}
+
 	var handlers = []
 
 	if (!util.isArray(filters))
 		filters = [ filters ]
-
-	// TODO this module code is code is not well separated, its tailored around loading and handling file content
-	// so this is sort of a hack to write less code for scanning
-	function toStatHandler(file, stat, callback) {
-		callback(null, stat)
-	}
 
 	for (var i = 0; i < filters.length; i++) {
 		module.exports.handle(filters[i], toStatHandler, handlers)
