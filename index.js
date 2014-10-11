@@ -44,9 +44,9 @@ module.exports.load = function(aPath, loadHandlers, externalCallback) {
 	}
 
 	var internalLoadHandlers = cloneDeep(loadHandlers)
-	
+
 	if (util.isArray(aPath)) {
-		
+
 		aPath = uniq(aPath)
 
 		var results = {}
@@ -78,6 +78,7 @@ module.exports.loadOne = function(aPath, results, loadHandlers, callback) {
 // TODO can optimize a lot if there is only one handler, especially if its '*'
 module.exports.statAndAct = function(aPath, results, loadHandlers, callback) {
 	fs.stat(aPath, function(err, stat) {
+		var dirname = path.dirname(aPath)
 
 		if (err)
 			return callback(err)
@@ -86,15 +87,15 @@ module.exports.statAndAct = function(aPath, results, loadHandlers, callback) {
 
 			var handler
 			for (var i = 0; i < loadHandlers.length; i++) {
-				
+
 				var pat = loadHandlers[i].pattern
 
-				if (minimatch(aPath, path.join(path.dirname(aPath), pat))) {
+				if (minimatch(aPath, path.join(dirname, pat))) {
 					handler = loadHandlers[i].handler
 					break
 				}
 			}
-		
+
 			function internalLoadCallback(err, data) {
 				if (err) return callback(err)
 
