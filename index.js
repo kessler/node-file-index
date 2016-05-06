@@ -173,7 +173,7 @@ module.exports.loadJsonFile = function(file, stat, callback) {
 			var error = new Error('failed to parse file')
 			error.cause = e
 			error.file = file
-			callback(e)
+			callback(error)
 		}
 	})
 }
