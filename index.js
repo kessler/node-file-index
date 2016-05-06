@@ -6,10 +6,7 @@ var cloneDeep = require('lodash.clonedeep')
 var uniq = require('lodash.uniq')
 var minimatch = require('minimatch')
 
-var defaultHandlers = [
-	{ pattern: '*.json', handler: module.exports.loadJsonFile },
-	{ pattern: '*', handler: module.exports.loadRawUtf8File }
-]
+var defaultHandlers
 
 module.exports.scan = function(aPath, filters, callback) {
 	if (typeof filters === 'function') {
@@ -164,3 +161,8 @@ module.exports.loadJsonFile = function(file, stat, callback) {
 		callback(null, JSON.parse(data))
 	})
 }
+
+defaultHandlers = [
+	{ pattern: '*.json', handler: module.exports.loadJsonFile },
+	{ pattern: '*', handler: module.exports.loadRawUtf8File }
+]
