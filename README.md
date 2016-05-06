@@ -2,7 +2,7 @@
 
 Quickly create an in memory index of files and (optionally) their content
 
-Uses (minimatch)[https://github.com/isaacs/minimatch] to filter files included in the index
+Uses [minimatch](https://github.com/isaacs/minimatch) to filter files included in the index
 
 ### simple
 ```
