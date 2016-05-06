@@ -167,8 +167,14 @@ module.exports.loadJsonFile = function(file, stat, callback) {
 		if (err) {
 			return callback(err)
 		}
-
-		callback(null, JSON.parse(data))
+		try {
+			callback(null, JSON.parse(data))
+		} catch (e) {
+			var error = new Error('failed to parse file')
+			error.cause = e
+			error.file = file
+			callback(e)
+		}
 	})
 }
 
