@@ -22,8 +22,9 @@ module.exports.scan = function(aPath, filters, callback) {
 
 	var handlers = []
 
-	if (!util.isArray(filters))
+	if (!util.isArray(filters)) {
 		filters = [ filters ]
+	}
 
 	for (var i = 0; i < filters.length; i++) {
 		module.exports.handle(filters[i], toStatHandler, handlers)
@@ -51,7 +52,9 @@ module.exports.load = function(aPath, loadHandlers, externalCallback) {
 		async.each(aPath, function(p, cb) {
 			module.exports.loadOne(p, results, internalLoadHandlers, cb)
 		}, function(err, __) {
-			if (err) return externalCallback(err)
+			if (err) {
+				return externalCallback(err)
+			}
 
 			externalCallback(null, results)
 		})
@@ -65,8 +68,9 @@ module.exports.load = function(aPath, loadHandlers, externalCallback) {
 
 module.exports.loadOne = function(aPath, results, loadHandlers, callback) {
 	module.exports.statAndAct(aPath, results, loadHandlers, function(err) {
-		if (err)
+		if (err) {
 			return callback(err)
+		}
 
 		callback(null, results)
 	})
@@ -77,8 +81,9 @@ module.exports.statAndAct = function(aPath, results, loadHandlers, callback) {
 	fs.stat(aPath, function(err, stat) {
 		var dirname = path.dirname(aPath)
 
-		if (err)
+		if (err) {
 			return callback(err)
+		}
 
 		if (stat.isFile()) {
 
@@ -94,7 +99,9 @@ module.exports.statAndAct = function(aPath, results, loadHandlers, callback) {
 			}
 
 			function internalLoadCallback(err, data) {
-				if (err) return callback(err)
+				if (err) {
+					return callback(err)
+				}
 
 				results[aPath] = data
 				callback(null)
@@ -137,8 +144,9 @@ module.exports.handle = function (pat, handler, handlers) {
 
 module.exports.loadRawFile = function(file, stat, callback) {
 	fs.readFile(file, function (err, data) {
-		if (err)
+		if (err) {
 			return callback(err)
+		}
 
 		callback(null, data)
 	})
@@ -146,8 +154,9 @@ module.exports.loadRawFile = function(file, stat, callback) {
 
 module.exports.loadRawUtf8File = function(file, stat, callback) {
 	fs.readFile(file, 'utf8', function (err, data) {
-		if (err)
+		if (err) {
 			return callback(err)
+		}
 
 		callback(null, data)
 	})
@@ -155,8 +164,9 @@ module.exports.loadRawUtf8File = function(file, stat, callback) {
 
 module.exports.loadJsonFile = function(file, stat, callback) {
 	fs.readFile(file, function (err, data) {
-		if (err)
+		if (err) {
 			return callback(err)
+		}
 
 		callback(null, JSON.parse(data))
 	})
