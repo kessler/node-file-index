@@ -85,7 +85,7 @@ module.exports.loadOne = function(aPath, results, loadHandlers, callback) {
 
 // TODO can optimize a lot if there is only one handler, especially if its '*'
 module.exports.statAndAct = function(aPath, results, loadHandlers, callback) {
-	debug('statAndAct(%s)', aPath, callback.from)
+	debug('statAndAct(%s)', aPath)
 
 	fs.stat(aPath, function(err, stat) {
 		var dirname = path.dirname(aPath)
@@ -109,7 +109,6 @@ module.exports.statAndAct = function(aPath, results, loadHandlers, callback) {
 
 			function internalLoadCallback(err, data) {
 				if (err) {
-					debug(err.cause, callback.from)
 					return callback(err)
 				}
 
@@ -134,7 +133,6 @@ module.exports.scanDir = function(aPath, results, loadHandlers, callback) {
 
 	fs.readdir(aPath, function(err, files) {
 		async.each(files, function(file, _callback) {
-			_callback.from='scandir'
 			module.exports.statAndAct(path.join(aPath, file), results, loadHandlers, _callback)
 		}, callback)
 	})
