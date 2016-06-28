@@ -5,7 +5,7 @@ Quickly create an in memory index of files and (optionally) their content
 Uses [minimatch](https://github.com/isaacs/minimatch) to filter files included in the index
 
 ### simple
-```
+```javascript
 var FileIndex = require('file-index')
 
 FileIndex.load(['/some/path'], function (err, results) {
@@ -22,7 +22,7 @@ FileIndex.scan(['/some/path'], function(err, files) {
 ```
 
 ### customize
-```
+```javascript
 function myCustomHandler(fullPathFilename, callback) {
 	fs.readFile(fullPathFilename, function (err, content) {
 		if (err) return callback(err)
